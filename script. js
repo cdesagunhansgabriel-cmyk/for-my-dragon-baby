@@ -1,0 +1,577 @@
+/* ======================================================
+   LOVE LETTER WEBSITE V3
+   NEW SCRIPT.JS
+   PART 3A
+====================================================== */
+
+
+// ===============================
+// ELEMENTS
+// ===============================
+
+const envelope = document.getElementById("envelope");
+const letter = document.getElementById("letter");
+const typewriter = document.getElementById("typewriter");
+
+const musicBtn = document.getElementById("musicBtn");
+const bgMusic = document.getElementById("bgMusic");
+
+const loveBtn = document.getElementById("loveBtn");
+
+
+
+
+// ===============================
+// LOVE LETTER TEXT
+// ===============================
+
+const loveLetter = `Hiii babyyy,
+
+there's something I want to tell you po. I've been thinking about this for a while now.
+
+Like, gusto po kitang ligawan, pero paano po babyy? How po?
+
+Hindi po ako marunong kapag online ligaw. Marunong po ako kapag personal po, hindi po dahil may experience na po ako. Dahil po sa mga tropa ko.
+
+Nagtanong po ako sa kanila, just in case na may ligawan ako.
+
+Gusto po kitang ligawan kasi gusto kong maging official na po tayo.
+
+And I also want to say that I am so lucky to have you.
+
+Like, sobrang swerte po, kasi ikaw lang po ang hindi sumuko sakin. Ikaw lang babyyy, as in.
+
+Thank you for loving me kahit sobrang dami kong flaws and red flags na kailangang ayusin.
+
+Don't worry po aayusin ko po yung mga red flags ko para sayo po.
+
+Tinatanong mo po kung anong red flags yun.
+
+Yung mga ano po, like iniiwan ka agad kapag may problems and misunderstanding, nagpapadala po ako sa emotions ko.
+
+Alam ko pong marami pa na napapansin mo po and don't be scared na sabihin mo po yun sakin.
+
+Sobrang swerte ko sayo babyyy, thank you kasi pinagkakatiwalaan mo pa rin ako kahit ilang beses ko ng nasira ang tiwala mo.
+
+Thank you for accepting and loving me for who I am.
+
+And thank you for staying kahit sobrang dami na nating pinag-aawayan and sobrang seloso ko babyy.
+
+And I want to love you din po in a genuine way.
+
+I want to give you flowers, surprise you with gifts, take you out on dates, and write you handwritten letters.
+
+Pero ngayon babyyy, ito po muna ha.
+
+Tsaka na po yan kapag nagkita na po tayo and may money na po ako, ok pooo babyyy.
+
+I love you soooo muchhhh babyyyy kooo mwaaaaa mwaaaaa mwaaaaa ❤;
+
+
+
+
+// ===============================
+// ENVELOPE CLICK
+// ===============================
+
+let opened = false;
+
+
+envelope.addEventListener("click",()=>{
+
+
+    if(opened) return;
+
+
+    opened = true;
+
+
+    envelope.classList.add("open");
+
+
+    setTimeout(()=>{
+
+
+        letter.classList.add("show");
+
+
+        startTyping();
+
+
+    },1500);
+
+
+
+    startMusic();
+
+
+});
+
+
+
+
+
+// ===============================
+// TYPEWRITER
+// ===============================
+
+let index = 0;
+
+
+function startTyping(){
+
+    typewriter.innerHTML = "";
+
+    index = 0;
+
+    typing();
+
+}
+
+
+
+function typing(){
+
+
+    if(index < loveLetter.length){
+
+
+        typewriter.innerHTML +=
+        loveLetter.charAt(index);
+
+
+        index++;
+
+
+        setTimeout(
+            typing,
+            35
+        );
+
+
+    }else{
+
+
+        loveBtn.style.display="block";
+
+        startConfetti();
+
+    }
+
+
+}
+
+
+
+
+
+// ===============================
+// MUSIC SYSTEM
+// ===============================
+
+let playing = false;
+
+
+
+function startMusic(){
+
+
+    bgMusic.volume = 0.5;
+
+
+    bgMusic.play()
+
+    .then(()=>{
+
+
+        playing = true;
+
+
+        musicBtn.innerHTML="🎶";
+
+
+    })
+
+
+    .catch(error=>{
+
+
+        console.log(
+        "Music blocked:",
+        error
+        );
+
+
+    });
+
+
+}
+
+
+
+
+
+musicBtn.addEventListener("click",(e)=>{
+
+
+    e.stopPropagation();
+
+
+
+    if(playing){
+
+
+        bgMusic.pause();
+
+
+        playing=false;
+
+
+        musicBtn.innerHTML="🎵";
+
+
+    }
+
+    else{
+
+
+        startMusic();
+
+
+    }
+
+
+});
+/* ======================================================
+   LOVE LETTER WEBSITE V3
+   NEW SCRIPT.JS
+   PART 3B
+   Effects + Popup + Confetti
+====================================================== */
+
+
+// ===============================
+// LOVE POPUP
+// ===============================
+
+const popup = document.getElementById("popup");
+const closePopup = document.getElementById("closePopup");
+
+
+loveBtn.addEventListener("click",()=>{
+
+    popup.classList.add("show");
+
+});
+
+
+closePopup.addEventListener("click",()=>{
+
+    popup.classList.remove("show");
+
+});
+
+
+
+
+
+// ===============================
+// FLOATING HEARTS
+// ===============================
+
+const heartsContainer =
+document.getElementById("hearts-container");
+
+
+function createHeart(){
+
+    const heart =
+    document.createElement("div");
+
+
+    heart.className="heart";
+
+
+    heart.innerHTML="❤️";
+
+
+    heart.style.left =
+    Math.random()*100+"%";
+
+
+    heart.style.fontSize =
+    Math.random()*20+15+"px";
+
+
+    heart.style.animationDuration =
+    Math.random()*5+5+"s";
+
+
+    heartsContainer.appendChild(heart);
+
+
+
+    setTimeout(()=>{
+
+        heart.remove();
+
+    },10000);
+
+}
+
+
+setInterval(createHeart,700);
+
+
+
+
+
+// ===============================
+// SAKURA PETALS
+// ===============================
+
+const sakuraContainer =
+document.getElementById("sakura-container");
+
+
+
+function createSakura(){
+
+
+    const sakura =
+    document.createElement("div");
+
+
+    sakura.className="sakura";
+
+
+    sakura.innerHTML="🌸";
+
+
+    sakura.style.left =
+    Math.random()*100+"%";
+
+
+    sakura.style.fontSize =
+    Math.random()*15+12+"px";
+
+
+    sakura.style.animationDuration =
+    Math.random()*5+6+"s";
+
+
+
+    sakuraContainer.appendChild(sakura);
+
+
+
+    setTimeout(()=>{
+
+        sakura.remove();
+
+    },12000);
+
+
+}
+
+
+setInterval(createSakura,900);
+
+
+
+
+
+// ===============================
+// SPARKLES
+// ===============================
+
+const sparkleContainer =
+document.getElementById("sparkle-container");
+
+
+
+function createSparkle(){
+
+
+    const sparkle =
+    document.createElement("span");
+
+
+    sparkle.className="sparkle";
+
+
+    sparkle.style.left =
+    Math.random()*100+"%";
+
+
+    sparkle.style.top =
+    Math.random()*100+"%";
+
+
+
+    sparkleContainer.appendChild(sparkle);
+
+
+
+    setTimeout(()=>{
+
+        sparkle.remove();
+
+    },2000);
+
+
+}
+
+
+setInterval(createSparkle,300);
+
+
+
+
+
+
+// ===============================
+// CONFETTI
+// ===============================
+
+const canvas =
+document.getElementById("confetti");
+
+
+const ctx =
+canvas.getContext("2d");
+
+
+
+let confetti=[];
+
+
+
+function resizeCanvas(){
+
+    canvas.width =
+    window.innerWidth;
+
+
+    canvas.height =
+    window.innerHeight;
+
+}
+
+
+resizeCanvas();
+
+
+window.addEventListener(
+"resize",
+resizeCanvas
+);
+
+
+
+
+function startConfetti(){
+
+
+    confetti=[];
+
+
+
+    for(let i=0;i<120;i++){
+
+
+        confetti.push({
+
+            x:
+            Math.random()*canvas.width,
+
+
+            y:
+            -20,
+
+
+            size:
+            Math.random()*8+3,
+
+
+            speed:
+            Math.random()*3+2,
+
+
+            drift:
+            Math.random()*2-1
+
+        });
+
+
+    }
+
+
+
+    animateConfetti();
+
+}
+
+
+
+
+function animateConfetti(){
+
+
+    ctx.clearRect(
+        0,
+        0,
+        canvas.width,
+        canvas.height
+    );
+
+
+
+    confetti.forEach((piece,index)=>{
+
+
+        ctx.fillStyle="#ff5c9d";
+
+
+        ctx.fillRect(
+
+            piece.x,
+
+            piece.y,
+
+            piece.size,
+
+            piece.size
+
+        );
+
+
+
+        piece.y += piece.speed;
+
+
+        piece.x += piece.drift;
+
+
+
+        if(piece.y > canvas.height){
+
+            confetti.splice(index,1);
+
+        }
+
+
+    });
+
+
+
+    if(confetti.length > 0){
+
+        requestAnimationFrame(
+            animateConfetti
+        );
+
+    }
+
+
+}
